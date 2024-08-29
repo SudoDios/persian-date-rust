@@ -2,6 +2,12 @@
 name = "persian_date"
 version = "0.1.0"
 edition = "2021"
+authors = ["SudoDios"]
+description = "Persian Date library for rust"
+license = "LGPL-3.0"
+homepage = "https://github.com/SudoDios/persian-date-rust"
+repository = "https://github.com/SudoDios/persian-date-rust"
+readme = "README.md"
 
 [dependencies]
 chrono = "0.4.38"
