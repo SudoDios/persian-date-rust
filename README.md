@@ -2,6 +2,8 @@
 
 Persian Date for Rust based on chrono date-time library
 
+[![crates.io](https://img.shields.io/crates/v/persian_date.svg)](https://crates.io/crates/persian_date) [![Documentation](https://img.shields.io/badge/Docs-persian_date-blue.svg)](https://docs.rs/persian_date/latest/persian_date)
+
 ## Installation
 
 Add this dependency in your Cargo.toml file
