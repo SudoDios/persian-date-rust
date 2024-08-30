@@ -1,6 +1,20 @@
 use std::fmt::{Debug, Display, Formatter};
 use crate::structure::{PDate, Reader};
 
+/// Formatting Trait for Format date to string
+/// Syntax like chrono formatting
+///
+/// # Example
+///
+/// ```
+/// use persian_date::structure::PDate;
+/// use persian_date::format::Format;
+///
+/// let pdate = PDate::now();
+/// println!("{}",pdate.format("%Y-%m-%d %H:%M:%S"))
+/// // print like : 1403-3-12 12:20:45
+/// ```
+///
 pub trait Format {
     fn format(&self, pattern : &str) -> String;
 }
