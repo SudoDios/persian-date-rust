@@ -10,5 +10,5 @@ repository = "https://github.com/SudoDios/persian-date-rust"
 readme = "README.md"
 
 [dependencies]
-chrono = "0.4.38"
-chrono-tz = "0.9.0"
+chrono = "0.4.40"
+chrono-tz = "0.10.3"

@@ -138,7 +138,7 @@ impl PDate {
         out
     }
 
-    fn get_date_from_jalali(&self,jalali : &Vec<i32>) -> DateTime<Tz> {
+    fn get_date_from_jalali(&self,jalali : &[i32]) -> DateTime<Tz> {
         self.time_zone.timestamp_millis_opt(self.time_millis).unwrap()
             .with_year(jalali[0]).unwrap().with_month(jalali[1] as u32).unwrap().with_day(jalali[2] as u32).unwrap()
     }
