@@ -192,6 +192,9 @@ pub trait Setter {
     /// Set/Change timezone
     fn set_time_zone(&mut self,timezone : Tz);
 
+    /// Set/Change timezone from &str
+    fn set_time_zone_str(&mut self,timezone : &str);
+
     /// Add years to date
     fn add_years(&mut self,years : u32);
     /// Add months to date

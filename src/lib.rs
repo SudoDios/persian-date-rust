@@ -1,5 +1,6 @@
 use std::cmp::Ordering;
 use std::ops::Add;
+use std::str::FromStr;
 use chrono::{DateTime, Datelike, Duration, Local, Months, NaiveDate, TimeZone, Timelike, Weekday};
 use chrono_tz::Tz;
 use crate::structure::{PDate, Reader, Setter};
@@ -442,6 +443,14 @@ impl Setter for PDate {
         self.time_zone = timezone;
         let date = timezone.timestamp_millis_opt(self.time_millis).unwrap();
         self.update_from_date(&date)
+    }
+
+    fn set_time_zone_str(&mut self, timezone: &str) {
+        if let Ok(timezone) = Tz::from_str(timezone) {
+            self.time_zone = timezone;
+            let date = timezone.timestamp_millis_opt(self.time_millis).unwrap();
+            self.update_from_date(&date)
+        }
     }
 
     fn add_years(&mut self, years: u32) {
