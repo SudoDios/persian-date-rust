@@ -10,7 +10,7 @@ Add this dependency in your Cargo.toml file
 
 ```toml
 [dependencies]
-persian_date = "1.0.2"
+persian_date = "1.0.3"
 ```
 
 ## Usage
