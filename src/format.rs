@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Display, Formatter};
-use crate::structure::{PDate, Reader};
+use crate::structure::{PDate, Getter};
 
 /// Formatting Trait for Format date to string
 /// Syntax like chrono formatting

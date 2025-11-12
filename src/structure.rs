@@ -28,8 +28,8 @@ pub struct PDate {
     pub(crate) time_zone : Tz
 }
 
-/// Reader Trait for fetching data from date
-pub trait Reader {
+/// Getter Trait for fetching data from date
+pub trait Getter {
     /// Return the jalali year
     fn year(&self) -> i32;
     /// Return the gregorian year
@@ -66,7 +66,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.day_name())
@@ -79,7 +79,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.grg_day_name())
@@ -97,7 +97,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.month_name())
@@ -110,7 +110,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.grg_month_name())
@@ -132,7 +132,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.time_of_day())
@@ -145,7 +145,7 @@ pub trait Reader {
     /// # Example
     ///
     /// ```
-    /// use persian_date::structure::{PDate,Reader};
+    /// use persian_date::structure::{PDate,Getter};
     ///
     /// let pdate = PDate::now();
     /// println!("{}",pdate.short_time_of_day())
@@ -195,18 +195,73 @@ pub trait Setter {
     /// Set/Change timezone from &str
     fn set_time_zone_str(&mut self,timezone : &str);
 
-    /// Add years to date
-    fn add_years(&mut self,years : u32);
-    /// Add months to date
-    fn add_months(&mut self,months : u32);
-    /// Add weeks to date
+    /// Add/Subtract years to date
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use persian_date::structure::{PDate,Setter,Getter};
+    ///
+    /// let mut pdate = PDate::from_jalali_date(1404,10,22);
+    /// assert_eq!(pdate.year(),1404);
+    /// pdate.add_years(-2); // you can subtract years
+    /// assert_eq!(pdate.year(),1402)
+    /// ```
+    fn add_years(&mut self,years : i32);
+    /// Add/Subtract months to date
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use persian_date::structure::{PDate,Setter,Getter};
+    ///
+    /// let mut pdate = PDate::from_jalali_date(1404,10,22);
+    /// assert_eq!(pdate.month(),10);
+    /// pdate.add_months(-2); // you can subtract month
+    /// assert_eq!(pdate.month(),8)
+    /// ```
+    fn add_months(&mut self,months : i32);
+    /// Add/Subtract weeks to date
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use persian_date::structure::{PDate,Setter,Getter};
+    ///
+    /// let mut pdate = PDate::from_jalali_date(1404,10,22);
+    /// assert_eq!(pdate.day(),22);
+    /// pdate.add_weeks(-1); // you can subtract weeks
+    /// assert_eq!(pdate.day(),15)
+    /// ```
     fn add_weeks(&mut self,weeks : i64);
-    /// Add days to date
+    /// Add/Subtract days to date
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use persian_date::structure::{PDate,Setter,Getter};
+    ///
+    /// let mut pdate = PDate::from_jalali_date(1404,10,22);
+    /// assert_eq!(pdate.day(),22);
+    /// pdate.add_days(-10); // you can subtract days
+    /// assert_eq!(pdate.day(),12)
+    /// ```
     fn add_days(&mut self,days : i64);
-    /// Add hours to date
+    /// Add/Subtract hours to date
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use persian_date::structure::{PDate,Setter,Getter};
+    ///
+    /// let mut pdate = PDate::from_jalali_date(1404,10,22);
+    /// assert_eq!(pdate.day(),22);
+    /// pdate.add_hours(-24); // you can subtract hours
+    /// assert_eq!(pdate.day(),21)
+    /// ```
     fn add_hours(&mut self,hours : i64);
-    /// Add minutes to date
+    /// Add/Subtract minutes to date
     fn add_minutes(&mut self,minutes : i64);
-    /// Add seconds to date
+    /// Add/Subtract seconds to date
     fn add_seconds(&mut self,seconds : i64);
 }

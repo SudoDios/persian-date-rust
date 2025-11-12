@@ -1,6 +1,6 @@
 [package]
 name = "persian_date"
-version = "1.0.3"
+version = "1.0.4"
 edition = "2021"
 authors = ["SudoDios"]
 description = "Persian Date library for rust"
@@ -10,5 +10,5 @@ repository = "https://github.com/SudoDios/persian-date-rust"
 readme = "README.md"
 
 [dependencies]
-chrono = "0.4.41"
+chrono = "0.4.42"
 chrono-tz = "0.10.4"

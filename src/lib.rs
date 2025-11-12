@@ -1,9 +1,9 @@
 use std::cmp::Ordering;
-use std::ops::Add;
+use std::ops::{Add, Sub};
 use std::str::FromStr;
 use chrono::{DateTime, Datelike, Duration, Local, Months, NaiveDate, TimeZone, Timelike, Weekday};
 use chrono_tz::Tz;
-use crate::structure::{PDate, Reader, Setter};
+use crate::structure::{PDate, Getter, Setter};
 
 pub mod format;
 pub mod structure;
@@ -163,7 +163,7 @@ impl PDate {
     }
 }
 
-impl Reader for PDate {
+impl Getter for PDate {
     fn year(&self) -> i32 {
         self.year
     }
@@ -453,59 +453,53 @@ impl Setter for PDate {
         }
     }
 
-    fn add_years(&mut self, years: u32) {
-        if years >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Months::new(years * 12));
-            self.update_from_date(&date)
+    fn add_years(&mut self, years: i32) {
+        let mut date = self.get_zoned_date();
+        if years > 0 {
+            date = date.add(Months::new((years as u32) * 12));
+        } else if years < 0 {
+            date = date.sub(Months::new(years.unsigned_abs() * 12));
         }
+        self.update_from_date(&date);
     }
 
-    fn add_months(&mut self, months: u32) {
-        if months >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Months::new(months));
-            self.update_from_date(&date)
+    fn add_months(&mut self, months: i32) {
+        let mut date = self.get_zoned_date();
+        if months > 0 {
+            date = date.add(Months::new(months as u32));
+        } else if months < 0 {
+            date = date.sub(Months::new(months.unsigned_abs()));
         }
+        self.update_from_date(&date);
     }
 
     fn add_weeks(&mut self, weeks: i64) {
-        if weeks >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Duration::days(weeks * 7));
-            self.update_from_date(&date)
-        }
+        let mut date = self.get_zoned_date();
+        date = date.add(Duration::days(weeks * 7));
+        self.update_from_date(&date);
     }
 
     fn add_days(&mut self, days: i64) {
-        if days >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Duration::days(days));
-            self.update_from_date(&date)
-        }
+        let mut date = self.get_zoned_date();
+        date = date.add(Duration::days(days));
+        self.update_from_date(&date);
     }
 
     fn add_hours(&mut self, hours: i64) {
-        if hours >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Duration::hours(hours));
-            self.update_from_date(&date)
-        }
+        let mut date = self.get_zoned_date();
+        date = date.add(Duration::hours(hours));
+        self.update_from_date(&date);
     }
 
     fn add_minutes(&mut self, minutes: i64) {
-        if minutes >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Duration::minutes(minutes));
-            self.update_from_date(&date)
-        }
+        let mut date = self.get_zoned_date();
+        date = date.add(Duration::minutes(minutes));
+        self.update_from_date(&date);
     }
 
     fn add_seconds(&mut self, seconds: i64) {
-        if seconds >= 1 {
-            let date = self.get_zoned_date();
-            let date = date.add(Duration::seconds(seconds));
-            self.update_from_date(&date)
-        }
+        let mut date = self.get_zoned_date();
+        date = date.add(Duration::seconds(seconds));
+        self.update_from_date(&date);
     }
 }
