@@ -17,6 +17,7 @@ use crate::structure::{PDate, Getter};
 ///
 pub trait Format {
     fn format(&self, pattern : &str) -> String;
+    fn format_gregorian(&self, pattern : &str) -> String;
 }
 
 impl Format for PDate {
@@ -44,6 +45,10 @@ impl Format for PDate {
             .replace("%f",&self.nano_second.to_string())
             .replace("%.f",&format!("{}.{}",self.second,self.nano_second))
             .replace("%:z",&self.format_timezone())
+    }
+
+    fn format_gregorian(&self, pattern: &str) -> String {
+        self.get_zoned_date().format(pattern).to_string()
     }
 }
 
